@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Funny Placeholder</title>
+  <title>My Projects</title>
   <style>
     html, body {
       margin: 0;
@@ -21,16 +21,55 @@
       background-image: radial-gradient(circle, #00ffd5 2px, transparent 2px);
       background-size: 40px 40px;
       transition: background-position 0.1s;
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
     }
 
     .title {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       font-size: 2rem;
+      margin-bottom: 20px;
       text-align: center;
-      pointer-events: none;
+    }
+
+    table {
+      border-collapse: collapse;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(6px);
+      border-radius: 10px;
+      overflow: hidden;
+      min-width: 300px;
+    }
+
+    th, td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      text-align: left;
+    }
+
+    th {
+      background: rgba(255,255,255,0.05);
+    }
+
+    tr:hover {
+      background: rgba(255,255,255,0.08);
+    }
+
+    a {
+      color: #00ffd5;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
 
     .particle {
@@ -41,12 +80,35 @@
       border-radius: 2px;
       pointer-events: none;
       transition: transform 0.3s, opacity 0.3s;
+      z-index: 0;
     }
   </style>
 </head>
 <body>
   <div class="pattern" id="pattern"></div>
-  <div class="title">Under Construction<br>Move your mouse for chaos</div>
+
+  <div class="content">
+    <div class="title">Projects</div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href="/jwt-decoder/">JWT Decoder</a></td>
+          <td>A strictly Clientside JWT Decoder written in Vue</td>
+        </tr>
+        <tr>
+          <td><a href="#">TBD</a></td>
+          <td>TBD</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <script>
     const pattern = document.getElementById('pattern');
@@ -55,14 +117,13 @@
       const x = e.clientX;
       const y = e.clientY;
 
-      // Move background pattern slightly
+      // Move background pattern
       pattern.style.backgroundPosition = `${x * 0.05}px ${y * 0.05}px`;
 
       // Create particle
       const particle = document.createElement('div');
       particle.className = 'particle';
 
-      // Random color
       const colors = ['#ff4d4d', '#4dff88', '#4da6ff', '#ffd24d'];
       particle.style.background = colors[Math.floor(Math.random() * colors.length)];
 
@@ -71,7 +132,6 @@
 
       document.body.appendChild(particle);
 
-      // Animate
       setTimeout(() => {
         particle.style.transform = `translate(${Math.random()*120-60}px, ${Math.random()*120-60}px) rotate(${Math.random()*360}deg) scale(1.5)`;
         particle.style.opacity = 0;
